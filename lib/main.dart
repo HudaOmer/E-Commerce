@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialBinding: Binding(),
-      home: const Scaffold(
+      home: Scaffold(
         body: ControlView(),
       ),
     );

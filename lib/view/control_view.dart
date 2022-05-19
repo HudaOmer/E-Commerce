@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/core/view_model/auth_view_model.dart';
 import 'package:untitled/view/auth/login_screen.dart';
+import 'package:untitled/view/profile_view.dart';
 import '../constants/constants.dart';
 import '../core/view_model/home_view_model.dart';
+import 'cart_view.dart';
+import 'home_view.dart';
 
 class ControlView extends GetWidget<AuthViewModel> {
-  const ControlView({Key? key}) : super(key: key);
+  // const ControlView({Key? key}) : super(key: key);
 
+  // Widget currentScreen = HomeView();
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +22,7 @@ class ControlView extends GetWidget<AuthViewModel> {
           : GetBuilder<HomeViewModel>(
             builder:(controller)=> Scaffold(
                 body: controller.currentScreen,
+                // body: controller.currentScreen,
                 bottomNavigationBar: _bottomNavigationBar(),
               ),
           );
@@ -74,7 +79,20 @@ class ControlView extends GetWidget<AuthViewModel> {
         currentIndex: controller.navigatorValue,
         onTap: (index) {
           controller.changeSelectedValue(index);
-          if (index == 1) {}
+         // switch (index) {
+         //   case 0 : {
+         //     currentScreen = HomeView();
+         //     break;
+         //   }
+         //   case 1 : {
+         //     currentScreen = CartView();
+         //     break;
+         //   }
+         //   case 2 : {
+         //     currentScreen = ProfileView();
+         //     break;
+         //   }
+         // }
         },
         elevation: 0,
         selectedItemColor: Colors.black,

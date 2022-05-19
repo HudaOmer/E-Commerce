@@ -10,8 +10,10 @@ class HomeViewModel extends GetxController {
 
 
   get navigatorValue => _navigatorValue;
+
   Widget _currentScreen = HomeView();
-  get currentScreen => _navigatorValue;
+
+  get currentScreen => _currentScreen;
 
   void changeSelectedValue(int selectedValue) {
     _navigatorValue = selectedValue;
