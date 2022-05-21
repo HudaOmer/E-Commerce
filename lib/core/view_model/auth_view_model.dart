@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -39,9 +40,11 @@ class AuthViewModel extends GetxController {
   //   super.onClose();
   // }
 
-  void googleSignInMethd() async {
+  void googleSignInMethod() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    print(googleUser);
+    if (kDebugMode) {
+      print(googleUser);
+    }
     GoogleSignInAuthentication? googleSignInAuthentication =
         await googleUser?.authentication;
 
@@ -71,7 +74,9 @@ class AuthViewModel extends GetxController {
           email: email.trim(), password: password.trim());
       Get.offAll(HomeView());
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
       Get.snackbar('Error Login Account', e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
     }
@@ -83,12 +88,20 @@ class AuthViewModel extends GetxController {
           .createUserWithEmailAndPassword(
               email: email.trim(), password: password.trim())
           .then((user) async {
-        saveUser(user);
+        await FireStoreUser().addUserToFireStore(UserModel(
+                userId: user.user?.uid,
+                email: user.user?.email,
+                // name:  user.user?.displayName,
+                // name: name == null ? user.user?.displayName : name,
+                name: user.user?.displayName??name,
+                pic: ''));
       });
 
-      Get.offAll(HomeView());
+      Get.offAll(() =>HomeView());
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
       Get.snackbar('Error Login Account', e.toString(),
           colorText: Colors.black, snackPosition: SnackPosition.BOTTOM);
     }
@@ -100,7 +113,9 @@ class AuthViewModel extends GetxController {
         UserModel(
             userId: user.user?.uid,
             email: user.user?.email,
-            name: name == null ? user.user?.displayName : name,
+            // name:  user.user?.displayName,
+            // name: name == null ? user.user?.displayName : name,
+            name: user.user?.displayName??name,
             pic: ''));
   }
 }

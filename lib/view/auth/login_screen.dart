@@ -110,7 +110,7 @@ class LoginScreen extends GetWidget<AuthViewModel> {
                   text: 'Sign in with Google',
                   icon: Icons.email,
                   onPressed: () {
-                    controller.googleSignInMethd();
+                    controller.googleSignInMethod();
                   },
                 ),
                 const SizedBox(

@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled/core/view_model/auth_view_model.dart';
 import 'package:untitled/view/auth/login_screen.dart';
-import 'package:untitled/view/profile_view.dart';
 import '../constants/constants.dart';
-import '../core/view_model/home_view_model.dart';
-import 'cart_view.dart';
-import 'home_view.dart';
+import '../core/view_model/control_view_model.dart';
 
 class ControlView extends GetWidget<AuthViewModel> {
-  // const ControlView({Key? key}) : super(key: key);
+  const ControlView({Key? key}) : super(key: key);
 
   // Widget currentScreen = HomeView();
 
@@ -19,7 +16,7 @@ class ControlView extends GetWidget<AuthViewModel> {
       return (Get.find<AuthViewModel>().user == null)
           // ? HomeView() : LoginScreen();
           ? LoginScreen()
-          : GetBuilder<HomeViewModel>(
+          : GetBuilder<ControlViewModel>(
             builder:(controller)=> Scaffold(
                 body: controller.currentScreen,
                 // body: controller.currentScreen,
@@ -30,8 +27,8 @@ class ControlView extends GetWidget<AuthViewModel> {
   }
 
   Widget _bottomNavigationBar() {
-    return GetBuilder<HomeViewModel>(
-      init: HomeViewModel(),
+    return GetBuilder<ControlViewModel>(
+      init: ControlViewModel(),
       builder: (controller) => BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(

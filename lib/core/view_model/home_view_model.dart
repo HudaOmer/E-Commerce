@@ -1,39 +1,36 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-
-import '../../view/cart_view.dart';
-import '../../view/home_view.dart';
-import '../../view/profile_view.dart';
+import 'package:untitled/core/services/home_services.dart';
+import '../../model/category_model.dart';
 
 class HomeViewModel extends GetxController {
-  int _navigatorValue = 0;
 
+  ValueNotifier<bool> get loading => _loading;
+  final ValueNotifier<bool> _loading = ValueNotifier(false);
 
-  get navigatorValue => _navigatorValue;
+  List<CategoryModel> get categoryModel => _categoryModel;
+  final List<CategoryModel> _categoryModel = [];
 
-  Widget _currentScreen = HomeView();
+  HomeViewModel() {
+    getCategory();
+  }
 
-  get currentScreen => _currentScreen;
-
-  void changeSelectedValue(int selectedValue) {
-    _navigatorValue = selectedValue;
-    switch (selectedValue) {
-      case 0:
-        {
-          _currentScreen = HomeView();
-          break;
+  getCategory() async {
+    _loading.value = true;
+    HomeService().getCategory().then((value) {
+      for (int i = 0; i < value.length; i++) {
+        _categoryModel.add(CategoryModel.fromJson(value[i].data() as Map<dynamic, dynamic>));
+        if (kDebugMode) {
+          print(_categoryModel.length);
         }
-      case 1:
-        {
-          _currentScreen = CartView();
-          break;
-        }
-      case 2:
-        {
-          _currentScreen = ProfileView();
-          break;
-        }
-    }
-    update();
+        _loading.value = false;
+      }
+      update();
+    });
   }
 }
+
+
+
+//The icons are from this link:
+//<a href="https://www.flaticon.com/free-icons/handbag" title="handbag icons">Handbag icons created by iconixar - Flaticon</a>

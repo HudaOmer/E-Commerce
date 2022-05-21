@@ -11,7 +11,7 @@ class SignUp extends GetWidget<AuthViewModel> {
   SignUp({Key? key}) : super(key: key);
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String? email, password;
+  String? email, password, name;
 
 
   @override
@@ -41,8 +41,8 @@ class SignUp extends GetWidget<AuthViewModel> {
                 const SizedBox(height: 40.0),
                 CustomTextFormField(hint: "SomeOne",
                   text: "Name",
-                  onSave: (value) {},
-                  validator: (value) {},),
+                  onSave: (value) {controller.name = value;},
+                  validator: (value) {if (value == null) print('Error');},),
                 const SizedBox(height: 40.0,),
                 CustomTextFormField(
                   hint: "SomeOne@gmail.com", text: "Email", onSave: (value) {
