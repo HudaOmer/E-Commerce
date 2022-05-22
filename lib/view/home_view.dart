@@ -20,6 +20,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeViewModel>(
+      init:HomeViewModel(),
       builder: (controller) => Scaffold(
         body: ListView(children: [
           Container(
